@@ -1,0 +1,29 @@
+﻿@model Panda.Models.Ad
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rieltor.ua Ad URLs</title>
+</head>
+<body>
+    <h1>Rieltor.ua Ad URLs</h1>
+    <div>
+        <p>Url: @Model.Url</p>
+        <p>Price: @Model.Price</p>
+        <p>Adress: @Model.Adress</p>
+        <p>Rooms: @Model.Rooms</p>
+        <p>Floor: @Model.Floor</p>
+
+        <div>
+            @foreach (var photo in Model.Gallery)
+            {
+                <img class="img" src="@photo" width="150" />
+            }
+        </div>
+        
+        @*<p>Description: @Model.Description</p>*@
+        @*<p>Contact: @Model.Contact</p>*@
+    </div>
+</body>
+</html>
