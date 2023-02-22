@@ -1,12 +1,15 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+﻿
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 50px 180px 50px 180px;
+}
+
+.main {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 5px 5px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -16,11 +19,62 @@ textarea {
     max-width: 280px;
 }
 
-.img {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    max-width: 10%;
-    height: auto
+header {
+    height: 78px;
+    width: 100%;
+    padding: 0 40px 12px 180px;
+    background-image: url(images/header-4.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+footer {
+    min-height: 100px;
+    width: 100%;
+    color: #eeeeee;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-image-header {
+    height: 85px;
+    background-image: url(images/footer-3.png);
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 50px 40px 0 280px;
+}
+
+@media screen {
+    html {
+        height: 100%;
+        width: auto;
+    }
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Broadway';
+    background: linear-gradient(180deg, #1b1b1b, #6f6f6f) no-repeat fixed;
+    /*background-image: linear-gradient(to bottom, grey, lightgrey, white);*/
+    /*background-size: cover;*/
+
+}
+
+.full-height {
+    height: 100%;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #505050
+}
+
+h1{
+    color: white;
 }
 

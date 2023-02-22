@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using Panda.Helpers.HtmlHelpers;
 using Panda.Models;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,29 +9,22 @@ namespace Panda.Helpers.HtmlHelpers
 {
     public class HtmlParseHelper
     {
-        private readonly HtmlDownloadHelper _downloadHelper;
 
-        public HtmlParseHelper(HtmlDownloadHelper downloadHelper)
-        {
-            _downloadHelper = downloadHelper;
-        }
-
-        public async Task<List<Ad>> GetAdsFromUrls(List<string> urls)
+        public async Task<List<Ad>> GetAdsFromUrls(List<string> htmlContents)
         {
             var bagOfAds = new ConcurrentBag<Ad>();
 
-            await Task.WhenAll(urls.Select(async url =>
+            await Task.WhenAll(htmlContents.Select(async htmlContent =>
             {
-                var ad = await GetAd(url);
+                var ad = await GetAd(htmlContent);
                 bagOfAds.Add(ad);
             }));
 
             return bagOfAds.ToList();
         }
 
-        public async Task<Ad> GetAd(string url)
+        public async Task<Ad> GetAd(string htmlContent)
         {
-            var htmlContent = await _downloadHelper.GetHtml(url);
             var document = new HtmlDocument();
             document.LoadHtml(htmlContent);
 
@@ -50,19 +42,25 @@ namespace Panda.Helpers.HtmlHelpers
             ad.Adress = document.DocumentNode.Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-address").FirstOrDefault()?.InnerText.Trim();
 
-            ad.Rooms = document.DocumentNode.Descendants("a")
+            ad.AdressLink = document.DocumentNode.Descendants("a")
+                .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-address")
+                .Where(y => y.GetAttributeValue("class", "") == "").FirstOrDefault()?.InnerText.Trim();
+
+            var square = document.DocumentNode.Descendants("span")
+                .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-details-row")
+                .Where(y => y.InnerText.Contains("м²")).Select(z => z.InnerText).FirstOrDefault().Trim();
+            ad.Square = square.Substring(0, square.IndexOf("/") - 1);
+
+            var rooms = document.DocumentNode.Descendants("a")
                 .Where(x => x.GetAttributeValue("href", "").Contains("-rooms/")).FirstOrDefault()?.InnerText.Trim();
+            ad.Rooms = rooms.Substring(0, rooms.IndexOf(" ")) + "к";
 
             ad.Floor = document.DocumentNode.Descendants("span")
                 .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-details-row")
-                .Where(y => y.InnerText.Contains("поверх")).Select(z => z.InnerText).FirstOrDefault().Trim().Replace("поверх ", "");
+                .Where(y => y.InnerText.Contains("поверх")).Select(z => z.InnerText).FirstOrDefault().Trim();
 
-            //ad.Description = document.DocumentNode.Descendants("div")
-            //    .Where(x => x.GetAttributeValue("class", "") == "offer-view-section-text").FirstOrDefault()?.InnerText.Trim();
-
-            //ad.Contact = document.DocumentNode.Descendants("div")
-            //    .Where(x => x.GetAttributeValue("class", "") == "object-contact").FirstOrDefault()?.InnerText.Trim();
-
+            ad.Description = document.DocumentNode.Descendants("div")
+                .Where(x => x.GetAttributeValue("class", "") == "offer-view-section-text").FirstOrDefault()?.InnerText.Trim(); 
             ad.Gallery = document.DocumentNode.Descendants("a")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-images-cell")
                 .Select(y => y.GetAttributeValue("href", "")).ToList();

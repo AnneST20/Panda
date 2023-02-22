@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Panda.Helpers.SitemapHeplers;
 using Panda.Helpers.HtmlHelpers;
 using System.Linq;
+using Panda.Models;
 
 namespace Panda.Controllers
 {
@@ -32,14 +33,8 @@ namespace Panda.Controllers
                 adsUrlList.AddRange(adUrls);
             }
 
-            // Pass the list of ad URLs to the view
-            //return View(adsUrlList);
-            var htmlDownload = new HtmlDownloadHelper(new System.Net.Http.HttpClient());
-
-            var htmlParser = new HtmlParseHelper(htmlDownload);
-            var ad = await htmlParser.GetAd(adsUrlList.First());
-
-            return View(ad);
+           
+            return View();
         }
     }
 

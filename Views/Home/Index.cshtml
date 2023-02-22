@@ -1,4 +1,4 @@
-﻿@model Panda.Models.Ad
+﻿@model List<Panda.Models.Ad>
 
 <!DOCTYPE html>
 <html>
@@ -7,23 +7,11 @@
     <title>Rieltor.ua Ad URLs</title>
 </head>
 <body>
-    <h1>Rieltor.ua Ad URLs</h1>
-    <div>
-        <p>Url: @Model.Url</p>
-        <p>Price: @Model.Price</p>
-        <p>Adress: @Model.Adress</p>
-        <p>Rooms: @Model.Rooms</p>
-        <p>Floor: @Model.Floor</p>
-
-        <div>
-            @foreach (var photo in Model.Gallery)
-            {
-                <img class="img" src="@photo" width="150" />
-            }
-        </div>
-        
-        @*<p>Description: @Model.Description</p>*@
-        @*<p>Contact: @Model.Contact</p>*@
-    </div>
+    <h1>
+        Знаходь квартири з PANDA
+    </h1>
+    <h3>
+        Дивитисть перелік квартир ->
+    </h3>
 </body>
 </html>
