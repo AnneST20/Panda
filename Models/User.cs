@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Panda.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public string Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
         public ICollection<Ad> Ads { get; set; }
     }
 }

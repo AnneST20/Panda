@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
-namespace Panda.Helpers.SitemapHeplers
+namespace Panda.Services.SitemapHeplers
 {
     public interface ISitemapHelper
     {

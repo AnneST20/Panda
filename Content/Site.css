@@ -20,8 +20,12 @@ textarea {
 }
 
 header {
-    height: 78px;
+    min-height: 78px;
     width: 100%;
+}
+
+.header-image {
+    height: 78px;
     padding: 0 40px 12px 180px;
     background-image: url(images/header-4.png);
     background-size: contain;
@@ -39,12 +43,17 @@ footer {
 }
 
 .footer-image-header {
-    height: 85px;
+    height: 83px;
     background-image: url(images/footer-3.png);
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
     padding: 50px 40px 0 280px;
+}
+
+.footer-body {
+    background-color: #404040;
+    padding: 0 0 0 280px;
 }
 
 @media screen {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Panda.Helpers.SitemapHeplers;
-using Panda.Helpers.HtmlHelpers;
+using Panda.Services.SitemapHeplers;
+using Panda.Services.HtmlHelpers;
 using System.Linq;
 using Panda.Models;
 
@@ -19,10 +19,7 @@ namespace Panda.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var sitemapUrls = new List<string>
-        {
-            "https://rieltor.ua/sitemap/offers.xml"
-        };
+            var sitemapUrls = new List<string> { "https://rieltor.ua/sitemap/offers.xml" };
 
             var adsUrlList = new List<string>();
 
@@ -33,7 +30,7 @@ namespace Panda.Controllers
                 adsUrlList.AddRange(adUrls);
             }
 
-           
+
             return View();
         }
     }

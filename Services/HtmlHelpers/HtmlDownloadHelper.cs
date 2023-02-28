@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Panda.Helpers.HtmlHelpers
+namespace Panda.Services.HtmlHelpers
 {
     public class HtmlDownloadHelper
     {

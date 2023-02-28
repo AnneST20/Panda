@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+
 
 namespace Panda.Models
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
 
         public DbSet<Ad> Ads { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<LikedAd> LikedAds { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
-            base.OnModelCreating(modelBuilder);
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
         }
     }
 

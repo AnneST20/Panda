@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Panda.Helpers.HtmlHelpers
+namespace Panda.Services.HtmlHelpers
 {
-    public class HtmlParseHelper
+    public class HtmlParseHelperRieltor
     {
+        private readonly string sourceKey = "rieltor";
 
         public async Task<List<Ad>> GetAdsFromUrls(List<string> htmlContents)
         {
@@ -64,6 +65,8 @@ namespace Panda.Helpers.HtmlHelpers
             ad.Gallery = document.DocumentNode.Descendants("a")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-images-cell")
                 .Select(y => y.GetAttributeValue("href", "")).ToList();
+
+            ad.SourceKey = sourceKey;
 
             return ad;
         }
