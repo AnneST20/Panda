@@ -179,8 +179,13 @@
     <Compile Include="Migrations\202303100816110_contextSettings.Designer.cs">
       <DependentUpon>202303100816110_contextSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303100943139_contextRefresh.cs" />
+    <Compile Include="Migrations\202303100943139_contextRefresh.Designer.cs">
+      <DependentUpon>202303100943139_contextRefresh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Repositories\AdsRepository.cs" />
     <Compile Include="Services\HtmlHelpers\HtmlDownloadHelper.cs" />
     <Compile Include="Services\HtmlHelpers\HtmlParseHelperRieltor.cs" />
     <Compile Include="Services\SitemapHeplers\DefaultSitemapHelper.cs" />
@@ -218,7 +223,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202302282202317_InitialCreate.resx">
@@ -229,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303100816110_contextSettings.resx">
       <DependentUpon>202303100816110_contextSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303100943139_contextRefresh.resx">
+      <DependentUpon>202303100943139_contextRefresh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
