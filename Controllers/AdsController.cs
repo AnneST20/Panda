@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using Panda.Repositories;
 
 namespace Panda.Controllers
 {
@@ -44,10 +45,14 @@ namespace Panda.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Url,Price,Adress,AdressLink,Square,Rooms,Floor,Description")] Ad ad)
+        public async Task<ActionResult> Create([Bind(Include = "SourceKey,Url,Price,Adress,AdressLink,Square,Rooms,Floor,Description,PetsAllowed,Gallery")] Ad ad)
         {
             if (ModelState.IsValid)
             {
+                if (ad.Id == null)
+                {
+                    ad.Id = AdsRepository.GetNewId();
+                }
                 db.Ads.Add(ad);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -76,7 +81,7 @@ namespace Panda.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Url,Price,Adress,AdressLink,Square,Rooms,Floor,Description")] Ad ad)
+        public async Task<ActionResult> Edit([Bind(Include = "SourceKey,Url,Price,Adress,AdressLink,Square,Rooms,Floor,Description,PetsAllowed,Gallery")] Ad ad)
         {
             if (ModelState.IsValid)
             {
@@ -109,12 +114,20 @@ namespace Panda.Controllers
         {
             Ad ad = await db.Ads.FindAsync(id);
             List<LikedAd> likes = await db.LikedAds.Where(l => l.AdId == ad.Id).ToListAsync();
+            List<Photo> gallery = await db.Gallery.Where(ph => ph.AdId == ad.Id).ToListAsync();
 
             if (likes.Any())
             {
                 foreach(var like in likes)
                 {
                     db.LikedAds.Remove(like);
+                }
+            }
+            if (gallery.Any())
+            {
+                foreach (var photo in gallery)
+                {
+                    db.Gallery.Remove(photo);
                 }
             }
             db.Ads.Remove(ad);
