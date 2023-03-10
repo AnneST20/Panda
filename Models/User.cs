@@ -5,6 +5,6 @@ namespace Panda.Models
 {
     public class User : IdentityUser
     {
-        public ICollection<Ad> Ads { get; set; }
+        public ICollection<LikedAd> LikedAds { get; set; }
     }
 }

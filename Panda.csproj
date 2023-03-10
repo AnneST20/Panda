@@ -175,7 +175,12 @@
     <Compile Include="Migrations\202302282212584_InitialCreateToNewDb.Designer.cs">
       <DependentUpon>202302282212584_InitialCreateToNewDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303100816110_contextSettings.cs" />
+    <Compile Include="Migrations\202303100816110_contextSettings.Designer.cs">
+      <DependentUpon>202303100816110_contextSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Photo.cs" />
     <Compile Include="Services\HtmlHelpers\HtmlDownloadHelper.cs" />
     <Compile Include="Services\HtmlHelpers\HtmlParseHelperRieltor.cs" />
     <Compile Include="Services\SitemapHeplers\DefaultSitemapHelper.cs" />
@@ -221,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302282212584_InitialCreateToNewDb.resx">
       <DependentUpon>202302282212584_InitialCreateToNewDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303100816110_contextSettings.resx">
+      <DependentUpon>202303100816110_contextSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

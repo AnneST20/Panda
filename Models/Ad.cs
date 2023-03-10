@@ -14,6 +14,8 @@ namespace Panda.Models
         public string Rooms { get; set; }
         public string Floor { get; set; }
         public string Description { get; set; }
-        public List<string> Gallery { get; set; }
+        public bool PetsAllowed { get; set; }
+        public List<Photo> Gallery { get; set; }
+        public List<LikedAd> LikedAds { get; set; }
     }
 }
