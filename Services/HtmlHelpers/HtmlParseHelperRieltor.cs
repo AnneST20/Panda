@@ -62,9 +62,15 @@ namespace Panda.Services.HtmlHelpers
 
             ad.Description = document.DocumentNode.Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-section-text").FirstOrDefault()?.InnerText.Trim(); 
-            ad.Gallery = document.DocumentNode.Descendants("a")
+            var gallery = document.DocumentNode.Descendants("a")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-images-cell")
                 .Select(y => y.GetAttributeValue("href", "")).ToList();
+
+            ad.Gallery = new List<Photo>();
+            foreach (var photo in gallery)
+            {
+                ad.Gallery.Add(new Photo { AdId = ad.Id, Url = photo });
+            }
 
             ad.SourceKey = sourceKey;
 

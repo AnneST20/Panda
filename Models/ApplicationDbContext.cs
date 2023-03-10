@@ -8,6 +8,7 @@ namespace Panda.Models
     {
 
         public DbSet<Ad> Ads { get; set; }
+        public DbSet<Photo> Gallery { get; set; }
         public DbSet<LikedAd> LikedAds { get; set; }
 
         public ApplicationDbContext()
