@@ -6,17 +6,56 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
 using Panda.Repositories;
+using Panda.Services.SitemapHeplers;
+using Panda.Services.HtmlHelpers;
 
 namespace Panda.Controllers
 {
     public class AdsController : Controller
     {
+        private readonly ISitemapHelper _sitemapHelper;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public AdsController()
+        {
+            _sitemapHelper = new DefaultSitemapHelper();
+        }
 
         // GET: Ads
         public async Task<ActionResult> Index()
         {
-            return View(await db.Ads.ToListAsync());
+            //return View(await db.Ads.ToListAsync());
+            var sitemapUrls = new List<string> { "https://rieltor.ua/sitemap/offers.xml" };
+
+            var adsUrlList = new List<string>();
+
+            foreach (var sitemapUrl in sitemapUrls)
+            {
+                var xSitemap = await _sitemapHelper.Read(sitemapUrl);
+                var adUrls = await _sitemapHelper.Parse(xSitemap, "https://rieltor.ua/flats-rent/view/");
+                adsUrlList.AddRange(adUrls);
+            }
+
+            HtmlDownloadHelper downloader = new HtmlDownloadHelper(new System.Net.Http.HttpClient());
+            HtmlParseHelperRieltor rieltor = new HtmlParseHelperRieltor();
+
+            var ads = new List<Ad>();
+            int i = 0;
+
+            foreach (var adUrl in adsUrlList)
+            {
+                if (i++ == 10)
+                    break;
+                try
+                {
+                    var html = await downloader.GetHtml(adUrl);
+                    var ad = await rieltor.GetAd(html);
+                    ads.Add(ad);
+                }
+                catch { }
+            }
+
+            return View(ads);
         }
 
         // GET: Ads/Details/5
