@@ -1,11 +1,6 @@
-﻿using Quartz;
-using Quartz.Impl;
-using System;
-using System.Collections.Generic;
+﻿using Panda.Models;
+using Panda.Schedulers;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Panda.Scheduler.Schedulers;
 
 namespace Panda.Scheduler
 {
@@ -13,7 +8,10 @@ namespace Panda.Scheduler
     {
         static void Main(string[] args)
         {
-            var db = new Panda.Models.ApplicationDbContext();
+
+            RieltorScheduler.Start();
+
+            System.Console.Read();
         }
     }
 }

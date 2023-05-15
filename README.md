@@ -18,6 +18,7 @@ Ads have only the main info that is displayed and there is map with marked adres
 
 - Create controllers and repositories:
 	- AdsController
+		- Add method for photos
 	- UsersController
 	- Home controller
 
@@ -50,11 +51,18 @@ Ads have only the main info that is displayed and there is map with marked adres
 
 ## Scheduled meetings
 
-- 10.03.2024:
+- 10.03.2023:
 	- Models
 	- Controllers
-	- Mockup?
 
-- 24.04.2024:
-	- Rieltor scheduler
-	- Map investigation
+- 24.03.2023:
+	- Mockup (figma)
+	- Rieltor scheduler // change adresslink to coordinates
+	- Map investigation // geoJSON
+
+
+- 14.04.2023:
+	- fix scheduler
+	- geoJson - elementary implementation - geoJson for all, new filtered geoJsom for search
+	- solr for search investigation (create plan for implementing)
+	- frontend realization investigation - add comments

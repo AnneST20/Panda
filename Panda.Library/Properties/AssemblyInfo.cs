@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Panda.Scheduler")]
+[assembly: AssemblyTitle("Panda.Library")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Panda.Scheduler")]
+[assembly: AssemblyProduct("Panda.Library")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7c1b188a-ae1f-4ea4-9b9f-50afbfcaa426")]
+[assembly: Guid("c83fb16b-1c34-4b8c-b742-02b720f7ce36")]
 
 // Version information for an assembly consists of the following four values:
 //

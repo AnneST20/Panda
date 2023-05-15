@@ -43,9 +43,11 @@ namespace Panda.Services.HtmlHelpers
             ad.Adress = document.DocumentNode.Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-address").FirstOrDefault()?.InnerText.Trim();
 
-            ad.AdressLink = document.DocumentNode.Descendants("a")
-                .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-address")
-                .Where(y => y.GetAttributeValue("class", "") == "").FirstOrDefault()?.InnerText.Trim();
+            var coordinates = document.DocumentNode.Descendants("script")
+                .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-map").FirstOrDefault()?.InnerText.Trim();
+            if (coordinates != null)
+                ad.Coordinates = coordinates
+                    .Substring(coordinates.IndexOf("["), coordinates.IndexOf("]") - coordinates.IndexOf("[") + 1);
 
             var square = document.DocumentNode.Descendants("span")
                 .Where(x => x.ParentNode.GetAttributeValue("class", "") == "offer-view-details-row")
@@ -53,7 +55,7 @@ namespace Panda.Services.HtmlHelpers
             ad.Square = square.Substring(0, square.IndexOf("/") - 1);
 
             var rooms = document.DocumentNode.Descendants("a")
-                .Where(x => x.GetAttributeValue("href", "").Contains("-rooms/")).FirstOrDefault()?.InnerText.Trim();
+                .Where(x => x.GetAttributeValue("href", "").Contains("-room")).FirstOrDefault()?.InnerText.Trim();
             ad.Rooms = rooms.Substring(0, rooms.IndexOf(" ")) + "к";
 
             ad.Floor = document.DocumentNode.Descendants("span")

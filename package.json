@@ -1,0 +1,24 @@
+{
+  "name": "Panda",
+  "version": "1.0.0",
+  "description": "PANDA is a web app that collects ads of rent flats from several sites and gethers them. \r There is also posibility to add custom ads (this  feature is only aviable for admins). \r Ads have only the main info that is displayed and there is map with marked adresses of flats.",
+  "main": "index.js",
+  "dependencies": {
+    "mapbox-gl": "^2.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnneST20/Panda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnneST20/Panda/issues"
+  },
+  "homepage": "https://github.com/AnneST20/Panda#readme"
+}
