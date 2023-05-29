@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
+using System;
+using System.Data.Entity.Validation;
+using Panda.Repositories;
 
 namespace Panda.Jobs
 {
@@ -43,7 +46,7 @@ namespace Panda.Jobs
 
             //Remove urls that already exist in context
             var adsUrlsToAdd = new List<string>();
-            foreach(var url in adUrls)
+            foreach (var url in adUrls)
             {
                 if (!this._context.Ads.Any(a => a.Url == url))
                 {
@@ -54,15 +57,21 @@ namespace Panda.Jobs
             HtmlDownloadHelper downloader = new HtmlDownloadHelper(new System.Net.Http.HttpClient());
             HtmlParseHelperRieltor rieltor = new HtmlParseHelperRieltor();
 
+            var ads = new List<Ad>();
+
             var tasks = adsUrlsToAdd.Select(async (adUrl) =>
             {
                 try
                 {
                     var html = await downloader.GetHtml(adUrl);
                     var ad = await rieltor.GetAd(html);
-                    lock (this._context.Ads)
+                    if (!String.IsNullOrEmpty(ad.Id))
                     {
-                        this._context.Ads.Add(ad);
+                        ads.Add(ad);
+                        //lock (this._context.Ads)
+                        //{
+                        //    this._context.Ads.Add(ad);
+                        //}
                     }
                 }
                 catch { }
@@ -70,7 +79,44 @@ namespace Panda.Jobs
 
             await Task.WhenAll(tasks);
 
-            await this._context.SaveChangesAsync();
+            //var md = new Ad
+            //{
+            //    Adress = "dsds",
+            //    ChildrenAllowed = true,
+            //    Coordinates = "[4343.434, 2323.545]",
+            //    Description = "sdsdsd",
+            //    PublicationDate = DateTime.Today,
+            //    SaveToContextDate = DateTime.Today,
+            //    Floor = "2",
+            //    Id = AdsRepository.GetNewId(),
+            //    SourceKey = "custom",
+            //    Price = "232",
+            //    Square = "34",
+            //    Url = "sdfehfushfur",
+            //    PetsAllowed = true,
+            //    Rooms = "4"
+            //};
+
+            //_context.Ads.Add(md);
+            try
+            {
+                await this._context.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors)
+                {
+                    foreach (var vError in error.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: " + vError.PropertyName + " Error: " + vError.ErrorMessage);
+                    }
+                }
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex1)
+            {
+                Console.WriteLine(ex1.Message);
+                Console.WriteLine(ex1.InnerException.InnerException.Message);
+            }
 
         }
     }
