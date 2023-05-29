@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Panda.Models;
+using Panda.Repositories;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,10 @@ namespace Panda.Services.HtmlHelpers
             ad.Url = document.DocumentNode.Descendants("link")
                 .Where(x => x.GetAttributeValue("rel", "") == "canonical").FirstOrDefault()?.GetAttributeValue("href", "");
 
-            ad.Id = document.DocumentNode.Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "") == "object-id").FirstOrDefault()?.InnerText.Trim();
+            //ad.Id = document.DocumentNode.Descendants("div")
+            //    .Where(x => x.GetAttributeValue("class", "") == "object-id").FirstOrDefault()?.InnerText.Trim();
+
+            ad.Id = AdsRepository.GetNewId();
 
             ad.Price = document.DocumentNode.Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-price-title").FirstOrDefault()?.InnerText.Trim();

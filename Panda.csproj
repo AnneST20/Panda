@@ -320,8 +320,11 @@
     <Compile Include="Migrations\202303282143196_DateToModelAdded.Designer.cs">
       <DependentUpon>202303282143196_DateToModelAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305161313117_DeleteRequired.cs" />
+    <Compile Include="Migrations\202305161313117_DeleteRequired.Designer.cs">
+      <DependentUpon>202305161313117_DeleteRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repositories\AdsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303282143196_DateToModelAdded.resx">
       <DependentUpon>202303282143196_DateToModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305161313117_DeleteRequired.resx">
+      <DependentUpon>202305161313117_DeleteRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

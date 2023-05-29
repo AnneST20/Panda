@@ -11,17 +11,17 @@ namespace Panda.Models
         [Required]
         public string SourceKey { get; set; }
         public string Url { get; set; }
-        [Required]
+        //[Required]
         public string Price { get; set; }
-        [Required]
+        //[Required]
         public string Adress { get; set; }
-        [Required]
+        //[Required]
         public string Coordinates { get; set; }
-        [Required]
+        //[Required]
         public string Square { get; set; }
-        [Required]
+        //[Required]
         public string Rooms { get; set; }
-        [Required]
+        //[Required]
         public string Floor { get; set; }
         public string Description { get; set; }
         public bool PetsAllowed { get; set; }
