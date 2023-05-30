@@ -297,6 +297,10 @@
     <Compile Include="Migrations\202305301443155_Initial.designer.cs">
       <DependentUpon>202305301443155_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305161313117_DeleteRequired.cs" />
+    <Compile Include="Migrations\202305161313117_DeleteRequired.Designer.cs">
+      <DependentUpon>202305161313117_DeleteRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

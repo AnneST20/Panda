@@ -69,7 +69,6 @@ namespace Panda.Jobs
                 _context.Gallery.Remove(_context.Gallery.ToList()[i]);
             }
             await _context.SaveChangesAsync();
-
             var tasks = adsUrlsToAdd.Select(async (adUrl) =>
             {
                 try
@@ -78,6 +77,7 @@ namespace Panda.Jobs
                     var ad = await rieltor.GetAd(html);
                     if (!String.IsNullOrEmpty(ad.Id))
                     {
+
                         ad.Id = AdsRepository.GetNewId();
                         ads.Add(ad);
                         lock (this._context.Ads)
