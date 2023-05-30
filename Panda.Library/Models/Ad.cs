@@ -8,7 +8,7 @@ namespace Panda.Models
     {
         [Key]
         public string Id { get; set; }
-        [Required]
+        //[Required]
         public string SourceKey { get; set; }
         public string Url { get; set; }
         //[Required]
@@ -26,7 +26,7 @@ namespace Panda.Models
         public string Description { get; set; }
         public bool PetsAllowed { get; set; }
         public bool ChildrenAllowed { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public string PublicationDate { get; set; }
         public DateTime SaveToContextDate { get; set; }
         public List<Photo> Gallery { get; set; }
         public List<LikedAd> LikedAds { get; set; }

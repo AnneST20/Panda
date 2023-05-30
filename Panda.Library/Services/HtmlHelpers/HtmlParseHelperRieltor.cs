@@ -72,9 +72,16 @@ namespace Panda.Services.HtmlHelpers
                 .Select(y => y.GetAttributeValue("href", "")).ToList();
 
             ad.Gallery = new List<Photo>();
+            ad.LikedAds = new List<LikedAd>();
+            ad.PetsAllowed = false;
+            ad.ChildrenAllowed = false;
+            ad.PublicationDate = document.DocumentNode.Descendants("span")
+                .Where(x => x.ParentNode.ChildNodes.Any(y => y.GetAttributeValue("svg", "") == @"http://www.w3.org/2000/svg"))
+                .FirstOrDefault()?.InnerText.Trim();
+            ad.SaveToContextDate = System.DateTime.Now;
             foreach (var photo in gallery)
             {
-                ad.Gallery.Add(new Photo { AdId = ad.Id, Url = photo });
+                ad.Gallery.Add(new Photo { Id = AdsRepository.GetNewId(), AdId = ad.Id, Url = photo});
             }
 
             ad.SourceKey = sourceKey;

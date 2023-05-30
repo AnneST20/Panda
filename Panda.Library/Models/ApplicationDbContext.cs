@@ -12,7 +12,7 @@ namespace Panda.Models
         public DbSet<LikedAd> LikedAds { get; set; }
 
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("PandaConnection", throwIfV1Schema: false)
         {
         }
 

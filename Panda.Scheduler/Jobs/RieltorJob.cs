@@ -59,6 +59,16 @@ namespace Panda.Jobs
 
             var ads = new List<Ad>();
 
+            for (int i = _context.Ads.Count() - 1; i >= 0; i--) 
+            {
+                _context.Ads.Remove(_context.Ads.ToList()[i]);
+            }
+
+            for (int i = _context.Gallery.Count() - 1; i >= 0; i--)
+            {
+                _context.Gallery.Remove(_context.Gallery.ToList()[i]);
+            }
+            await _context.SaveChangesAsync();
             var tasks = adsUrlsToAdd.Select(async (adUrl) =>
             {
                 try
@@ -67,11 +77,39 @@ namespace Panda.Jobs
                     var ad = await rieltor.GetAd(html);
                     if (!String.IsNullOrEmpty(ad.Id))
                     {
+
+                        ad.Id = AdsRepository.GetNewId();
                         ads.Add(ad);
-                        //lock (this._context.Ads)
-                        //{
-                        //    this._context.Ads.Add(ad);
-                        //}
+                        lock (this._context.Ads)
+                        {
+                            this._context.Ads.Add(ad);
+                            foreach (var photo in ad.Gallery)
+                            {
+                                this._context.Gallery.Add(photo);
+                            }
+                            //try
+                            //{
+                            //    if (ad.Id != null)
+                            //    {
+                            //        this._context.SaveChangesAsync();
+                            //    }
+                            //}
+                            //catch (DbEntityValidationException ex)
+                            //{
+                            //    foreach (var error in ex.EntityValidationErrors)
+                            //    {
+                            //        foreach (var vError in error.ValidationErrors)
+                            //        {
+                            //            Console.WriteLine("Property: " + vError.PropertyName + " Error: " + vError.ErrorMessage);
+                            //        }
+                            //    }
+                            //}
+                            //catch (System.Data.Entity.Infrastructure.DbUpdateException ex1)
+                            //{
+                            //    Console.WriteLine(ex1.Message);
+                            //    Console.WriteLine(ex1.InnerException.InnerException.Message);
+                            //}
+                        }
                     }
                 }
                 catch { }
@@ -79,25 +117,6 @@ namespace Panda.Jobs
 
             await Task.WhenAll(tasks);
 
-            //var md = new Ad
-            //{
-            //    Adress = "dsds",
-            //    ChildrenAllowed = true,
-            //    Coordinates = "[4343.434, 2323.545]",
-            //    Description = "sdsdsd",
-            //    PublicationDate = DateTime.Today,
-            //    SaveToContextDate = DateTime.Today,
-            //    Floor = "2",
-            //    Id = AdsRepository.GetNewId(),
-            //    SourceKey = "custom",
-            //    Price = "232",
-            //    Square = "34",
-            //    Url = "sdfehfushfur",
-            //    PetsAllowed = true,
-            //    Rooms = "4"
-            //};
-
-            //_context.Ads.Add(md);
             try
             {
                 await this._context.SaveChangesAsync();
