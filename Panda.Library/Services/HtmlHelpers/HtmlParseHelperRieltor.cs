@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Panda.Models;
+using Panda.Repositories;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,10 @@ namespace Panda.Services.HtmlHelpers
             ad.Url = document.DocumentNode.Descendants("link")
                 .Where(x => x.GetAttributeValue("rel", "") == "canonical").FirstOrDefault()?.GetAttributeValue("href", "");
 
-            ad.Id = document.DocumentNode.Descendants("div")
-                .Where(x => x.GetAttributeValue("class", "") == "object-id").FirstOrDefault()?.InnerText.Trim();
+            //ad.Id = document.DocumentNode.Descendants("div")
+            //    .Where(x => x.GetAttributeValue("class", "") == "object-id").FirstOrDefault()?.InnerText.Trim();
+
+            ad.Id = AdsRepository.GetNewId();
 
             ad.Price = document.DocumentNode.Descendants("div")
                 .Where(x => x.GetAttributeValue("class", "") == "offer-view-price-title").FirstOrDefault()?.InnerText.Trim();
@@ -69,9 +72,16 @@ namespace Panda.Services.HtmlHelpers
                 .Select(y => y.GetAttributeValue("href", "")).ToList();
 
             ad.Gallery = new List<Photo>();
+            ad.LikedAds = new List<LikedAd>();
+            ad.PetsAllowed = false;
+            ad.ChildrenAllowed = false;
+            ad.PublicationDate = document.DocumentNode.Descendants("span")
+                .Where(x => x.ParentNode.ChildNodes.Any(y => y.GetAttributeValue("svg", "") == @"http://www.w3.org/2000/svg"))
+                .FirstOrDefault()?.InnerText.Trim();
+            ad.SaveToContextDate = System.DateTime.Now;
             foreach (var photo in gallery)
             {
-                ad.Gallery.Add(new Photo { AdId = ad.Id, Url = photo });
+                ad.Gallery.Add(new Photo { Id = AdsRepository.GetNewId(), AdId = ad.Id, Url = photo});
             }
 
             ad.SourceKey = sourceKey;

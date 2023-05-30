@@ -1,9 +1,9 @@
-namespace Panda.Migrations
+﻿namespace Panda.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -12,30 +12,47 @@ namespace Panda.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        SourceKey = c.String(nullable: false),
-                        Url = c.String(nullable: false),
-                        Price = c.String(nullable: false),
-                        Adress = c.String(nullable: false),
-                        AdressLink = c.String(),
-                        Square = c.String(nullable: false),
-                        Rooms = c.String(nullable: false),
-                        Floor = c.String(nullable: false),
+                        SourceKey = c.String(),
+                        Url = c.String(),
+                        Price = c.String(),
+                        Adress = c.String(),
+                        Coordinates = c.String(),
+                        Square = c.String(),
+                        Rooms = c.String(),
+                        Floor = c.String(),
                         Description = c.String(),
-                        User_Id = c.String(maxLength: 128),
+                        PetsAllowed = c.Boolean(nullable: false),
+                        ChildrenAllowed = c.Boolean(nullable: false),
+                        PublicationDate = c.String(),
+                        SaveToContextDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Photos",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        AdId = c.String(maxLength: 128),
+                        Url = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.Ads", t => t.AdId)
+                .Index(t => t.AdId);
             
             CreateTable(
                 "dbo.LikedAds",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        AdId = c.String(),
-                        UserId = c.String(),
+                        AdId = c.String(maxLength: 128),
+                        UserId = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Ads", t => t.AdId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.AdId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -111,22 +128,27 @@ namespace Panda.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.LikedAds", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Ads", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.LikedAds", "AdId", "dbo.Ads");
+            DropForeignKey("dbo.Photos", "AdId", "dbo.Ads");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Ads", new[] { "User_Id" });
+            DropIndex("dbo.LikedAds", new[] { "UserId" });
+            DropIndex("dbo.LikedAds", new[] { "AdId" });
+            DropIndex("dbo.Photos", new[] { "AdId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.LikedAds");
+            DropTable("dbo.Photos");
             DropTable("dbo.Ads");
         }
     }

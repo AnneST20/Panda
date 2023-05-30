@@ -9,7 +9,7 @@ namespace Panda.Scheduler
         static void Main(string[] args)
         {
 
-            RieltorScheduler.Start();
+            //RieltorScheduler.Start();
 
             System.Console.Read();
         }

@@ -6,7 +6,7 @@ namespace Panda.Repositories
     {
         public static string GetNewId()
         {
-            return Guid.NewGuid().ToString("N");
+            return Guid.NewGuid().ToString();
         }
     }
 }

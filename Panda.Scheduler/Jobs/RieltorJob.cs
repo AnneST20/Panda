@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
+using System;
+using System.Data.Entity.Validation;
+using Panda.Repositories;
 
 namespace Panda.Jobs
 {
@@ -43,7 +46,7 @@ namespace Panda.Jobs
 
             //Remove urls that already exist in context
             var adsUrlsToAdd = new List<string>();
-            foreach(var url in adUrls)
+            foreach (var url in adUrls)
             {
                 if (!this._context.Ads.Any(a => a.Url == url))
                 {
@@ -54,15 +57,59 @@ namespace Panda.Jobs
             HtmlDownloadHelper downloader = new HtmlDownloadHelper(new System.Net.Http.HttpClient());
             HtmlParseHelperRieltor rieltor = new HtmlParseHelperRieltor();
 
+            var ads = new List<Ad>();
+
+            for (int i = _context.Ads.Count() - 1; i >= 0; i--) 
+            {
+                _context.Ads.Remove(_context.Ads.ToList()[i]);
+            }
+
+            for (int i = _context.Gallery.Count() - 1; i >= 0; i--)
+            {
+                _context.Gallery.Remove(_context.Gallery.ToList()[i]);
+            }
+            await _context.SaveChangesAsync();
+
             var tasks = adsUrlsToAdd.Select(async (adUrl) =>
             {
                 try
                 {
                     var html = await downloader.GetHtml(adUrl);
                     var ad = await rieltor.GetAd(html);
-                    lock (this._context.Ads)
+                    if (!String.IsNullOrEmpty(ad.Id))
                     {
-                        this._context.Ads.Add(ad);
+                        ad.Id = AdsRepository.GetNewId();
+                        ads.Add(ad);
+                        lock (this._context.Ads)
+                        {
+                            this._context.Ads.Add(ad);
+                            foreach (var photo in ad.Gallery)
+                            {
+                                this._context.Gallery.Add(photo);
+                            }
+                            //try
+                            //{
+                            //    if (ad.Id != null)
+                            //    {
+                            //        this._context.SaveChangesAsync();
+                            //    }
+                            //}
+                            //catch (DbEntityValidationException ex)
+                            //{
+                            //    foreach (var error in ex.EntityValidationErrors)
+                            //    {
+                            //        foreach (var vError in error.ValidationErrors)
+                            //        {
+                            //            Console.WriteLine("Property: " + vError.PropertyName + " Error: " + vError.ErrorMessage);
+                            //        }
+                            //    }
+                            //}
+                            //catch (System.Data.Entity.Infrastructure.DbUpdateException ex1)
+                            //{
+                            //    Console.WriteLine(ex1.Message);
+                            //    Console.WriteLine(ex1.InnerException.InnerException.Message);
+                            //}
+                        }
                     }
                 }
                 catch { }
@@ -70,7 +117,25 @@ namespace Panda.Jobs
 
             await Task.WhenAll(tasks);
 
-            await this._context.SaveChangesAsync();
+            try
+            {
+                await this._context.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors)
+                {
+                    foreach (var vError in error.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: " + vError.PropertyName + " Error: " + vError.ErrorMessage);
+                    }
+                }
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException ex1)
+            {
+                Console.WriteLine(ex1.Message);
+                Console.WriteLine(ex1.InnerException.InnerException.Message);
+            }
 
         }
     }
