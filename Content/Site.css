@@ -2,14 +2,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding: 50px 180px 50px 180px;
-}
-
-.main {
-    padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.2) 5px 5px 5px 5px;
+    padding: 3rem;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -20,40 +13,86 @@ textarea {
 }
 
 header {
-    min-height: 78px;
-    width: 100%;
+    height: 4rem;
+    width: contain;
+    margin: 0 2rem 0 2rem;
+    vertical-align: central;
+    overflow: hidden;
+    font-size: 1.2rem;
+    border-bottom: rgba(46, 119, 88, 0.8);
+}
+
+header a {
+    float: left;
+    color: #201C1B;
+    /*height: 2.5rem;*/
+    padding: 1.75rem 1rem 0.25rem 1.5rem;
+    /*line-height: 25px;*/
+    /*border-radius: 4px;*/
+}
+
+header a.logo {
+        
+    font-size: 25px;
+    font-weight: bold;
+}
+
+header a:hover {
+    color: #2E7758;
+    font: bold;
+}
+
+.header a.active {
+    color: #2E7758;
+    font: bold;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-left {
+    float: left;
+}
+
+.header-navigation {
+    border-bottom: 2px solid #2e7758;
+    padding-bottom: 0.5rem;
+    margin: 0 3rem 0 3rem;
+    vertical-align: central;
+    
 }
 
 .header-image {
-    height: 78px;
-    padding: 0 40px 12px 180px;
-    background-image: url(images/header-4.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
+    float: left;
+    padding-top: 0.5rem;
+    height: 3rem;
+}
+
+.header-icon {
+    height: 1.6rem;
 }
 
 footer {
-    min-height: 100px;
+    min-height: 3rem;
     width: 100%;
-    color: #eeeeee;
     position: absolute;
     bottom: 0;
-}
-
-.footer-image-header {
-    height: 83px;
-    background-image: url(images/footer-3.png);
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    padding: 50px 40px 0 280px;
+    /*padding: 0 2rem 0 2rem;*/
+    vertical-align: central;
+    overflow: hidden;
+    font-size: 1rem;
 }
 
 .footer-body {
-    background-color: #404040;
-    padding: 0 0 0 280px;
+    margin: 0 3rem 0 3rem;
+    border-top: 2px solid rgba(46, 119, 88, 0.8);
+}
+
+footer span {
+    padding: 1.75rem 1rem 0.25rem 1rem;
+    float: left;
+    color: #201C1B;
 }
 
 @media screen {
@@ -66,12 +105,14 @@ footer {
 
 body {
     margin: 0;
-    font-family: 'Broadway';
-    background: linear-gradient(180deg, #1b1b1b, #6f6f6f) no-repeat fixed;
-    /*background-image: linear-gradient(to bottom, grey, lightgrey, white);*/
-    /*background-size: cover;*/
+    font-family: 'Cambria Math';
+    background: #fef9f3;
+    height: 100%;
+    background-size: cover;
 
 }
+
+
 
 .full-height {
     height: 100%;
@@ -83,13 +124,11 @@ body {
     color: #505050
 }
 
-h1{
-    color: white;
-}
-
 #map {
     height: 400px; /* The height is 400 pixels */
     width: 100%; /* The width is the width of the web page */
     background: white;
 }
+
+
 

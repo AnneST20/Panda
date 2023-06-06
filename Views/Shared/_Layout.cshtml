@@ -25,32 +25,29 @@
             </div>
         </div>*@
 
-    <header>
-        <div class="header-image">
-            <span>
-                <a class="logo">
-                    PANDA
-                </a>
-            </span>
+    <header class="header-navigation">
+        <div class="header-left">
+            <img class="header-image" src="~/Content/images/PandaLogo.png" />
+            <a>Головна</a>
+            <a>Оренда</a>
+            <a>Про нас</a>
         </div>
-        
+        <div class="header-right">
+            <a>
+                <img class="header-icon" src="~/Content/images/Likes.png" />
+            </a>
+            <a>
+                <img class="header-icon" src="~/Content/images/Profile.png" />
+            </a>
+        </div>
     </header>
 
-    <div class="container body-content">
-        <div class="main">
-            @RenderBody()
-        </div>
+    <div class="body-content">
+        @RenderBody()
     </div>
 
     <footer>
-        <div class="footer-image-header">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </div>
-        <div class="footer-body">
-            <span>
-                There may be some contants
-            </span>
-        </div>
+        <div class="footer-body"></div>
     </footer>
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>

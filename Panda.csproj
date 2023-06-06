@@ -279,8 +279,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\footer-3.png" />
-    <Content Include="Content\images\header-4.png" />
+    <Content Include="Content\images\Likes.png" />
+    <Content Include="Content\images\Panda.png" />
+    <Content Include="Content\images\PandaLogo.png" />
+    <Content Include="Content\images\Profile.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
