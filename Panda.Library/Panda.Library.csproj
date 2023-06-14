@@ -65,6 +65,10 @@
   <ItemGroup>
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\GeoJsonModels\Feature.cs" />
+    <Compile Include="Models\GeoJsonModels\GeoJsonModel.cs" />
+    <Compile Include="Models\GeoJsonModels\Geometry.cs" />
+    <Compile Include="Models\GeoJsonModels\Properties.cs" />
     <Compile Include="Models\LikedAd.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\User.cs" />
@@ -79,8 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="GeoJSON\ads.geojson" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,6 +1,4 @@
-﻿using Panda.Models;
-using Panda.Schedulers;
-using System.Linq;
+﻿using Panda.Schedulers;
 
 namespace Panda.Scheduler
 {
@@ -10,6 +8,7 @@ namespace Panda.Scheduler
         {
 
             //RieltorScheduler.Start();
+            GeoJsonScheduler.Start();
 
             System.Console.Read();
         }

@@ -22,7 +22,7 @@ namespace Panda.Schedulers
             sched.Start();
 
             IJobDetail job = JobBuilder.Create<RieltorJob>()
-                .WithIdentity("myJob", "group1")
+                .WithIdentity("rieltorJob", "mainGroup")
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
@@ -32,9 +32,7 @@ namespace Panda.Schedulers
                 .RepeatForever())
                 .Build();
 
-
-
-            sched.ScheduleJob(job, trigger);
+            sched.ScheduleJob(job, trigger); 
         }
 
         //public static async void Start()

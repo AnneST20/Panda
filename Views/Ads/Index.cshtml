@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div style="height:100%;">
+    <div class="header-left" style="width:40%"></div>
+    <div id="map" class="header-right" style='width: 60%;'></div>
+</div>
 
-<div id="map" style='width: 100%; height: 500px;'></div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uZWVldHR0aWlpaSIsImEiOiJjbGYyZ3J5eTUwaWR2M3JueWo5NzVnM3NhIn0.AgnX_maHaDWflibAL827kQ';
@@ -18,8 +21,34 @@
         zoom: 9 // starting zoom
 
     });
+
+    map.on('style.load', () => {
+        map.setFog({}); // Set the default atmosphere style
+    });
+
+    map.on('load', () => {
+        map.addSource('ads', {
+            type: 'geojson',
+            // Use a URL for the value for the `data` property.
+            data: 'C:\\Users\\anna.stetsenko\\Documents\\Anna\\Panda\\Panda.Library\\GeoJSON\\ads.geojson';
+        });
+
+        map.addLayer({
+            'id': 'ads-layer',
+            'type': 'circle',
+            'source': 'ads',
+            'paint': {
+                'circle-radius': 4,
+                'circle-stroke-width': 1,
+                'circle-color': 'green',
+                'circle-stroke-color': 'white'
+            }
+        });
+    });
 </script>
-@{
+
+
+@*@{
     var coorinated = Model.Select(ad => ad.Coordinates).ToList();
     foreach (var c in coorinated)
     {
@@ -27,11 +56,19 @@
             // Set marker options.
             var marker = new mapboxgl.Marker({
                 color: "green",
+                
             }).setLngLat(@c)
                 .addTo(map);
         </script>
     }
-}
+}*@
+
+<div>
+    <div class="header-left"></div>
+    <div class="header-right">
+        <div id="map"></div>
+    </div>
+</div>
 
 
 @*<h2>Index</h2>

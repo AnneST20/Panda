@@ -1,14 +1,13 @@
 ﻿using Panda.Models;
+using Panda.Repositories;
 using Panda.Services.HtmlHelpers;
 using Panda.Services.SitemapHeplers;
 using Quartz;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
-using Serilog;
-using System;
-using System.Data.Entity.Validation;
-using Panda.Repositories;
 
 namespace Panda.Jobs
 {
@@ -136,6 +135,7 @@ namespace Panda.Jobs
                 Console.WriteLine(ex1.Message);
                 Console.WriteLine(ex1.InnerException.InnerException.Message);
             }
+
 
         }
     }

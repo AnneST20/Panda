@@ -3,6 +3,7 @@
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding: 3rem;
+    display: flow-root;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -22,14 +23,15 @@ header {
     border-bottom: rgba(46, 119, 88, 0.8);
 }
 
-header a {
-    float: left;
-    color: #201C1B;
-    /*height: 2.5rem;*/
-    padding: 1.75rem 1rem 0.25rem 1.5rem;
-    /*line-height: 25px;*/
-    /*border-radius: 4px;*/
-}
+    header a {
+        float: left;
+        color: rgba(32, 28, 27, 1);
+        /*height: 2.5rem;*/
+        padding: 1.75rem 1rem 0.25rem 1.5rem;
+        /*line-height: 25px;*/
+        /*border-radius: 4px;*/
+        text-decoration: none;
+    }
 
 header a.logo {
         
@@ -67,6 +69,7 @@ header a:hover {
     float: left;
     padding-top: 0.5rem;
     height: 3rem;
+    opacity: 0.8;
 }
 
 .header-icon {
@@ -76,7 +79,7 @@ header a:hover {
 footer {
     min-height: 3rem;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     /*padding: 0 2rem 0 2rem;*/
     vertical-align: central;
@@ -125,9 +128,36 @@ body {
 }
 
 #map {
-    height: 400px; /* The height is 400 pixels */
-    width: 100%; /* The width is the width of the web page */
+    height: 700px; /* The height is 400 pixels */
+    width: contain; /* The width is the width of the web page */
     background: white;
+}
+
+.home-h1 {
+    color: rgba(32, 28, 27, 0.8);
+    font-size: 3.5rem;
+    font-stretch: extra-expanded;
+}
+
+.home-h3 {
+    color: rgba(46, 119, 88, 0.8);
+    font-size: 1.25rem;
+    font-stretch: extra-expanded;
+    /*vertical-align: central;*/
+    font-weight: 100;
+}
+
+button {
+    color: #fef9f3;
+    background: rgba(46, 119, 88, 0.8);
+    border: 0px;
+}
+
+.btn-home {
+    vertical-align: bottom;
+    font-size: 1.25rem;
+    padding: 0.75rem 3rem 0.75rem 3rem;
+    border-radius: 1rem;
 }
 
 
