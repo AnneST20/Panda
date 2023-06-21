@@ -5,13 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="height:100%;">
-    <div class="header-left" style="width:40%"></div>
+<div style="width: -webkit-fill-available;">
+    <div class="header-left" style="width:40%">
+        @foreach(var ad in Model)
+            {
+            <div class="ads-container">
+                <div class="header-left ads-gallery">
+                    @*<img src="@ad.Gallery.FirstOrDefault();" style="height: 100px;"/>*@
+                </div>
+                <div class="header-right ads-info">
+                    <h3>@ad.Price</h3>
+                    <p>@ad.Adress</p>
+                    <div>
+                        <img src="~/Content/images/IconRooms.png" class="ads-info-icon" />
+                        @ad.Rooms
+                    </div>
+                    <div>
+                        <img src="~/Content/images/IconSquare.png" class="ads-info-icon" />
+                        @ad.Square
+                    </div>
+                    <div>
+                        <img src="~/Content/images/IconFloor.png" class="ads-info-icon"/>
+                        @ad.Floor
+                    </div>
+                    <div>
+                        <img src="~/Content/images/IconChildren.png" class="ads-info-icon"/>
+                        @(ad.ChildrenAllowed ? "Yes" : "No")
+                    </div>
+                    <div>
+                        <img src="~/Content/images/IconAnimal.png" class="ads-info-icon"/>
+                        @(ad.PetsAllowed ? "Yes" : "No")
+                    </div>
+                </div>
+            </div> 
+            }
+    </div>
     <div id="map" class="header-right" style='width: 60%;'></div>
 </div>
 
 
-<script>
+@*<script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uZWVldHR0aWlpaSIsImEiOiJjbGYyZ3J5eTUwaWR2M3JueWo5NzVnM3NhIn0.AgnX_maHaDWflibAL827kQ';
     const map = new mapboxgl.Map({
         container: 'map', // container ID
@@ -42,6 +75,41 @@
                 'circle-stroke-width': 1,
                 'circle-color': 'green',
                 'circle-stroke-color': 'white'
+            }
+        });
+    });
+</script>*@
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uZWVldHR0aWlpaSIsImEiOiJjbGYyZ3J5eTUwaWR2M3JueWo5NzVnM3NhIn0.AgnX_maHaDWflibAL827kQ';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+        zoom: 10, // starting zoom
+        center: [30.52, 50.45] // // starting center in [lng, lat]
+    });
+
+    map.on('style.load', () => {
+        map.setFog({}); // Set the default atmosphere style
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    map.on('load', function () {
+        map.addSource("route", {
+            "type": "geojson",
+            "data": 'https://github.com/AnneST20/Panda/blob/master/Panda.Library/GeoJSON/ads.geojson'
+        });
+
+        map.addLayer({
+            "id": "route",
+            "type": "circle",
+            "source": "route",
+            "paint": {
+                "circle-radius": 3,
+                "circle-color": "#ff0000"
             }
         });
     });

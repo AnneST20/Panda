@@ -2,8 +2,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding: 3rem;
-    display: flow-root;
+    padding: 4.5rem 3rem 3rem 3rem;
+    display: flex;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -15,12 +15,14 @@ textarea {
 
 header {
     height: 4rem;
-    width: contain;
+    width: -webkit-fill-available;
     margin: 0 2rem 0 2rem;
     vertical-align: central;
     overflow: hidden;
     font-size: 1.2rem;
     border-bottom: rgba(46, 119, 88, 0.8);
+    position: fixed;
+    background-color: #fef9f3;
 }
 
     header a {
@@ -85,6 +87,7 @@ footer {
     vertical-align: central;
     overflow: hidden;
     font-size: 1rem;
+    background-color: #fef9f3;
 }
 
 .footer-body {
@@ -109,10 +112,10 @@ footer span {
 body {
     margin: 0;
     font-family: 'Cambria Math';
+    color: rgba(32, 28, 27, 0.8);
     background: #fef9f3;
     height: 100%;
     background-size: cover;
-
 }
 
 
@@ -128,9 +131,14 @@ body {
 }
 
 #map {
-    height: 700px; /* The height is 400 pixels */
-    width: contain; /* The width is the width of the web page */
     background: white;
+    flex: 1;
+    position: sticky;
+    height: 100vh;
+    overflow: hidden;
+    bottom: 4rem;
+    top: 4.6rem;
+    right: 3rem;
 }
 
 .home-h1 {
@@ -158,6 +166,26 @@ button {
     font-size: 1.25rem;
     padding: 0.75rem 3rem 0.75rem 3rem;
     border-radius: 1rem;
+}
+
+.ads-container{
+    margin: 0rem 1rem 1rem 0rem;
+    padding: 1rem;
+    height: 15rem;
+    background-color: white;
+}
+
+.ads-gallery{
+    width: 60%;
+}
+.ads-info{
+    width: 40%;
+    word-break: break-word;
+}
+
+.ads-info-icon {
+    height: 1.25rem;
+    vertical-align: bottom;
 }
 
 

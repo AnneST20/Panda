@@ -27,6 +27,11 @@ namespace Panda.Controllers
         public async Task<ActionResult> Index()
         {
             return View(await db.Ads.ToListAsync());
+
+            //var ads = await db.Ads.ToListAsync();
+
+            //return View(ads);
+
         }
 
 

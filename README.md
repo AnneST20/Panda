@@ -66,3 +66,9 @@ Ads have only the main info that is displayed and there is map with marked adres
 	- geoJson - elementary implementation - geoJson for all, new filtered geoJsom for search
 	- solr for search investigation (create plan for implementing)
 	- frontend realization investigation - add comments
+	- 
+
+
+Dapper for db
+Solr for db filtration (indexing fields ids)
+Separate for user and admin areas

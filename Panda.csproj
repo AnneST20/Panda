@@ -279,6 +279,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\IconAnimal.png" />
+    <Content Include="Content\images\IconChildren.png" />
+    <Content Include="Content\images\IconFloor.png" />
+    <Content Include="Content\images\IconRooms.png" />
+    <Content Include="Content\images\IconSquare.png" />
     <Content Include="Content\images\Likes.png" />
     <Content Include="Content\images\Panda.png" />
     <Content Include="Content\images\PandaLogo.png" />
