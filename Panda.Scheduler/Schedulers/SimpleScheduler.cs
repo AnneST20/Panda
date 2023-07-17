@@ -1,11 +1,10 @@
-﻿using Panda.Jobs;
+﻿using Panda.Scheduler.Jobs;
 using Quartz;
 using Quartz.Impl;
-using System;
 
-namespace Panda.Schedulers
+namespace Panda.Scheduler.Schedulers
 {
-    public class GeoJsonScheduler
+    class SimpleScheduler
     {
         public static void Start()
         {
@@ -17,14 +16,14 @@ namespace Panda.Schedulers
             IScheduler sched = schedFact.GetScheduler().Result;
             sched.Start();
 
-            IJobDetail job = JobBuilder.Create<GeoJsonJob>()
-                .WithIdentity("geoJsonJob", "mainGroup")
+            IJobDetail job = JobBuilder.Create<SimpleJob>()
+                .WithIdentity("simpleJob", "mainGroup")
                 .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
-                .StartAt(DateTime.Now.AddMinutes(10))
+                .StartNow()
                 .WithSimpleSchedule(x => x
-                .WithIntervalInHours(24)
+                .WithIntervalInMinutes(2)
                 .RepeatForever())
                 .Build();
 

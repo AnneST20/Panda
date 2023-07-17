@@ -283,6 +283,7 @@
     <Content Include="Content\images\IconChildren.png" />
     <Content Include="Content\images\IconFloor.png" />
     <Content Include="Content\images\IconRooms.png" />
+    <Content Include="Content\images\IconSearch.png" />
     <Content Include="Content\images\IconSquare.png" />
     <Content Include="Content\images\Likes.png" />
     <Content Include="Content\images\Panda.png" />
@@ -313,6 +314,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <None Include="Content\ads.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>

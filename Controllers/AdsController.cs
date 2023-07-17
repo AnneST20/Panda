@@ -26,13 +26,18 @@ namespace Panda.Controllers
         // GET: Ads
         public async Task<ActionResult> Index()
         {
-            return View(await db.Ads.ToListAsync());
+            return View(await db.Ads.Include(a => a.Gallery).ToListAsync());
 
             //var ads = await db.Ads.ToListAsync();
 
             //return View(ads);
 
         }
+
+        //public async Task<ActionResult> Index([Bind(Include = "Adress,MinPrixe,MaxPrice,MinFloor,MaxFloor,MinRooms,MaxRooms,PetsAllowed,ChildrenAllowed")] AdDto ad)
+        //{
+        //    return View(await db.Ads.Include(a => a.Gallery).ToListAsync());
+        //}
 
 
         // GET: Ads/Details/5

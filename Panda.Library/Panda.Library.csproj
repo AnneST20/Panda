@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Ad.cs" />
+    <Compile Include="Models\AdDto.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\GeoJsonModels\Feature.cs" />
     <Compile Include="Models\GeoJsonModels\GeoJsonModel.cs" />

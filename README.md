@@ -72,3 +72,9 @@ Ads have only the main info that is displayed and there is map with marked adres
 Dapper for db
 Solr for db filtration (indexing fields ids)
 Separate for user and admin areas
+
+Virtual folder (path) - for geoJson
+Publish profiles - investigate
+Manage extensions -> NPM Task Runner -> After build copy file (create script)
+Roman Kuziv - head 
+

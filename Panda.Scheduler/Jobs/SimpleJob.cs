@@ -7,23 +7,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Panda.Jobs
+namespace Panda.Scheduler.Jobs
 {
-    public class GeoJsonJob : IJob
+    class SimpleJob : IJob
     {
         private ApplicationDbContext _context;
-        public GeoJsonJob()
+        public SimpleJob()
         {
             this._context = new ApplicationDbContext();
         }
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
+            Console.WriteLine("Simple Job has been started");
 
-            await Console.Out.WriteLineAsync($"GeoJsonJob started at {DateTime.Now}");
-
-            var geoJson = new GeoJsonModel { 
-                type = "FeatureCollection", 
-                features = new List<Feature>() 
+            var geoJson = new GeoJsonModel
+            {
+                type = "FeatureCollection",
+                features = new List<Feature>()
             };
 
             foreach (var ad in _context.Ads.ToList())
@@ -63,11 +63,16 @@ namespace Panda.Jobs
                 catch (Exception ex) { }
             }
 
-            var json = JsonConvert.SerializeObject(geoJson);
+            
+            var json = jsonConvert(geoJson);
             System.IO.File.WriteAllText("C:\\Users\\anna.stetsenko\\Documents\\Anna\\Panda\\Panda.Library\\GeoJSON\\ads.geojson", json);
 
-            await Console.Out.WriteLineAsync($"GeoJsonJob finished at {DateTime.Now}");
-            await Task.CompletedTask;
+            return Task.CompletedTask;
+        }
+
+        private string jsonConvert(GeoJsonModel geoJson)
+        {
+            return JsonConvert.SerializeObject(geoJson);
         }
     }
 }

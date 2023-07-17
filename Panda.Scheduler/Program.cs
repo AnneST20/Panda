@@ -8,9 +8,11 @@ namespace Panda.Scheduler
         {
 
             //RieltorScheduler.Start();
-            GeoJsonScheduler.Start();
+            //GeoJsonScheduler.Start();
 
             System.Console.Read();
         }
+
+        
     }
 }

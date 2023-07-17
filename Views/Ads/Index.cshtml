@@ -7,11 +7,62 @@
 
 <div style="width: -webkit-fill-available;">
     <div class="header-left" style="width:40%">
+        <div class="ads-filter">
+            <div class="search-filters-container">
+                <div class="search-container">
+                    <input class="search-field" />
+                    <a class="btn btn-light search-icon-btn">
+                        <img src="~/Content/images/IconSearch.png" class="search-icon" />
+                    </a>
+                </div>
+                <div class="filters-container">
+                    <div class="col col1">
+                        <div>
+                            Ціна
+                            <input class="filter" type="number"/>
+                            <input class="filter" type="number"/>
+                        </div>
+                        <div>
+                            Площа
+                            <input class="filter" type="number"/>
+                            <input class="filter" type="number"/>
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div>
+                            Кімнати
+                            <input class="filter" type="number"/>
+                            <input class="filter" type="number"/>
+                        </div>
+                        <div>
+                            Поверх
+                            <input class="filter" type="number"/>
+                            <input class="filter" type="number"/>
+                        </div>
+                    </div>
+                    <div class="col col3">
+                        <div>
+                            Тварини дозволені
+                            <input class="filter" type="checkbox"/>
+                        </div>
+                        <div>
+                            Діти дозволені
+                            <input class="filter" type="checkbox"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        <h4 class="ads-h4">
+            Всього знайдено оголошень: @Model.Count()
+        </h4>
         @foreach(var ad in Model)
             {
             <div class="ads-container">
                 <div class="header-left ads-gallery">
-                    @*<img src="@ad.Gallery.FirstOrDefault();" style="height: 100px;"/>*@
+                    <img src="@ad.Gallery.FirstOrDefault().Url" />
                 </div>
                 <div class="header-right ads-info">
                     <h3>@ad.Price</h3>
@@ -36,49 +87,13 @@
                         <img src="~/Content/images/IconAnimal.png" class="ads-info-icon"/>
                         @(ad.PetsAllowed ? "Yes" : "No")
                     </div>
+                    <input class="btn" type="button" onclick="location.href='@ad.Url';" value="Детальніше" />
                 </div>
             </div> 
             }
     </div>
     <div id="map" class="header-right" style='width: 60%;'></div>
 </div>
-
-
-@*<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uZWVldHR0aWlpaSIsImEiOiJjbGYyZ3J5eTUwaWR2M3JueWo5NzVnM3NhIn0.AgnX_maHaDWflibAL827kQ';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        center: [30.52, 50.45], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-
-    });
-
-    map.on('style.load', () => {
-        map.setFog({}); // Set the default atmosphere style
-    });
-
-    map.on('load', () => {
-        map.addSource('ads', {
-            type: 'geojson',
-            // Use a URL for the value for the `data` property.
-            data: 'C:\\Users\\anna.stetsenko\\Documents\\Anna\\Panda\\Panda.Library\\GeoJSON\\ads.geojson';
-        });
-
-        map.addLayer({
-            'id': 'ads-layer',
-            'type': 'circle',
-            'source': 'ads',
-            'paint': {
-                'circle-radius': 4,
-                'circle-stroke-width': 1,
-                'circle-color': 'green',
-                'circle-stroke-color': 'white'
-            }
-        });
-    });
-</script>*@
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5uZWVldHR0aWlpaSIsImEiOiJjbGYyZ3J5eTUwaWR2M3JueWo5NzVnM3NhIn0.AgnX_maHaDWflibAL827kQ';
@@ -97,21 +112,69 @@
 
     map.addControl(new mapboxgl.NavigationControl());
 
+    var url = "./Content/ads.json";
+
     map.on('load', function () {
         map.addSource("route", {
-            "type": "geojson",
-            "data": 'https://github.com/AnneST20/Panda/blob/master/Panda.Library/GeoJSON/ads.geojson'
+            type: "geojson",
+            data: url
         });
 
         map.addLayer({
-            "id": "route",
-            "type": "circle",
-            "source": "route",
-            "paint": {
-                "circle-radius": 3,
-                "circle-color": "#ff0000"
+            'id': "route",
+            'type': "circle",
+            'source': "route",
+            'paint': {
+                'circle-radius': 3,
+                'circle-color': "green"
             }
         });
+
+        const layers = map.getStyle().layers;
+        const labelLayerId = layers.find(
+            (layer) => layer.type === 'symbol' && layer.layout['text-field']
+        ).id;
+
+        // The 'building' layer in the Mapbox Streets
+        // vector tileset contains building height data
+        // from OpenStreetMap.
+        map.addLayer(
+            {
+                'id': 'add-3d-buildings',
+                'source': 'composite',
+                'source-layer': 'building',
+                'filter': ['==', 'extrude', 'true'],
+                'type': 'fill-extrusion',
+                'minzoom': 15,
+                'paint': {
+                    'fill-extrusion-color': '#aaa',
+
+                    // Use an 'interpolate' expression to
+                    // add a smooth transition effect to
+                    // the buildings as the user zooms in.
+                    'fill-extrusion-height': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        15,
+                        0,
+                        15.05,
+                        ['get', 'height']
+                    ],
+                    'fill-extrusion-base': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        15,
+                        0,
+                        15.05,
+                        ['get', 'min_height']
+                    ],
+                    'fill-extrusion-opacity': 0.6
+                }
+            },
+            labelLayerId
+        );
     });
 </script>
 

@@ -4,9 +4,9 @@
   "description": "PANDA is a web app that collects ads of rent flats from several sites and gethers them. \r There is also posibility to add custom ads (this  feature is only aviable for admins). \r Ads have only the main info that is displayed and there is map with marked adresses of flats.",
   "main": "index.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "mapbox-gl": "^2.13.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -24,6 +24,9 @@ namespace Panda.Jobs
         }
         public async Task Execute(IJobExecutionContext context)
         {
+            var startTime = DateTime.Now;
+            await Console.Out.WriteLineAsync($"Rieltor job started at {startTime}");
+
             // Read ads url from rieltor sitemap
             var sitemapUrl = "https://rieltor.ua/sitemap/offers.xml";
             var xSitemap = await _sitemapHelper.Read(sitemapUrl);
@@ -136,7 +139,9 @@ namespace Panda.Jobs
                 Console.WriteLine(ex1.InnerException.InnerException.Message);
             }
 
-
+            var endTime = DateTime.Now;
+            await Console.Out.WriteLineAsync($"Rieltor job finished at {endTime}");
+            await Console.Out.WriteLineAsync($"Job lasted for {(endTime - startTime).TotalMinutes} minutes");
         }
     }
 }
